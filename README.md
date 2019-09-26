@@ -3,4 +3,4 @@ First look at WPF using .Net Core 3.0
 
 Source code to test drive of WPF using .Net Core 3.0
 
-see <TBD>
+see https://dennis-cs-chuah.github.io/csharp-blog/
