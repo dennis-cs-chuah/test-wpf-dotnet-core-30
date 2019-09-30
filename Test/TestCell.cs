@@ -32,7 +32,6 @@ namespace Test {
             Cell testCell = new Cell (isAlive: isAlive);
             testCell.ShouldBeAlive (Enumerable.
                 Range (0, livingNeighbours).
-
                 Select (_ => new Cell (isAlive: true)));
             testCell.ApplyNextState ();
             Assert.AreEqual (expectedToBeAlive, testCell.IsAlive);
