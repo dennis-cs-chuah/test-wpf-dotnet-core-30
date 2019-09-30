@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace TestWPFCore30.Model {
@@ -50,6 +51,17 @@ namespace TestWPFCore30.Model {
             foreach (int x in Enumerable.Range (1, width))
                 foreach (int y in Enumerable.Range (1, height))
                     cells[x, y].ApplyNextState ();
+        }
+
+        private IEnumerable<Cell> GetRow (int y) {
+            foreach (int x in Enumerable.Range (1, width))
+                yield return cells[x, y];
+        }
+
+        public IEnumerable<IEnumerable<Cell>> GetCells () {
+            foreach (int y in Enumerable.Range (1, height)) {
+                yield return GetRow (y);
+            }
         }
     }
 }
