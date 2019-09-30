@@ -12,7 +12,11 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Orientation="Vertical" Margin="4 4 6 4">
-            
+            <Label Content="Grid width"/>
+            <TextBox Text="50"/>
+            <Label Content="Grid height"/>
+            <TextBox Text="50"/>
+            <Button Content="Start" Margin="20 20 20 0"/>
         </StackPanel>
         <Grid Grid.Column="1" Margin="4">
             
