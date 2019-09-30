@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestWPFCore30"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Conway's Game of Life" Height="300" Width="600">
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Vertical" Margin="4 4 6 4">
+            
+        </StackPanel>
+        <Grid Grid.Column="1" Margin="4">
+            
+        </Grid>
     </Grid>
 </Window>
