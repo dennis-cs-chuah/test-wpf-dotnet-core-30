@@ -30,6 +30,9 @@ namespace TestWPFCore30.ViewModel {
             }
         }
 
+        public bool IsStarted => timer != null;
+        public bool IsStopped => timer is null;
+
         public int InitialAlivePercentage { get; set; } = GameGrid.DEFAULT_ALIVE_PERCENTAGE;
 
         private void NotifyPropertyChanged (string propertyName) {
@@ -45,10 +48,15 @@ namespace TestWPFCore30.ViewModel {
             timer.Tick += Timer_Tick;
             timer.Interval = new TimeSpan (0, 0, intervalSeconds);
             timer.Start ();
+            NotifyPropertyChanged (nameof (IsStarted));
+            NotifyPropertyChanged (nameof (IsStopped));
         }
 
         public void Stop () {
             timer?.Stop ();
+            timer = null;
+            NotifyPropertyChanged (nameof (IsStarted));
+            NotifyPropertyChanged (nameof (IsStopped));
         }
 
         private void Timer_Tick (object? _, EventArgs __) {
