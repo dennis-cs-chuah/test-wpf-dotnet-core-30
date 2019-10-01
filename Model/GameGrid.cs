@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace TestWPFCore30.Model {
     public class GameGrid {
-        private const int INITIAL_ALIVE_PERCENTAGE = 10;
+        public const int DEFAULT_ALIVE_PERCENTAGE = 10;
         private readonly byte width;
         private readonly byte height;
         private readonly Cell[,] cells;
 
-        public GameGrid (byte width, byte height) {
+        public GameGrid (byte width, byte height, int initialAlivePercentage = DEFAULT_ALIVE_PERCENTAGE) {
             this.width = width;
             this.height = height;
             cells = new Cell[width + 2, height + 2];
@@ -29,7 +29,7 @@ namespace TestWPFCore30.Model {
             Random random = new Random ();
             foreach (int x in Enumerable.Range (1, width))
                 foreach (int y in Enumerable.Range (1, height))
-                    cells[x, y] = new Cell (isAlive: random.Next (1, 100) <= INITIAL_ALIVE_PERCENTAGE);
+                    cells[x, y] = new Cell (isAlive: random.Next (1, 100) <= initialAlivePercentage);
         }
 
         public void NextIteration () {
