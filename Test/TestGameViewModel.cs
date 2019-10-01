@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using NUnit.Framework;
 using TestWPFCore30.ViewModel;
 
@@ -41,36 +42,43 @@ namespace Test {
                 InitialAlivePercentage = 100 // All alive
             };
             viewModel.PropertyChanged += ViewModel_PropertyChanged;
+            firstTime = true;
             viewModel.Start ();
-            Assert.AreEqual (
-                "####################\r\n" +
-                "####################\r\n" +
-                "####################\r\n" +
-                "####################\r\n" +
-                "####################\r\n" +
-                "####################\r\n" +
-                "####################\r\n" +
-                "####################\r\n" +
-                "####################\r\n" +
-                "####################",
-                viewModel.Display);
         }
 
-        private void ViewModel_PropertyChanged (object sender, System.ComponentModel.PropertyChangedEventArgs e) {
-            if (sender is GameViewModel viewModel) {
-                viewModel.Stop ();
-                Assert.AreEqual (
-                    "##                ##\r\n" +
-                    "                    \r\n" +
-                    "                    \r\n" +
-                    "                    \r\n" +
-                    "                    \r\n" +
-                    "                    \r\n" +
-                    "                    \r\n" +
-                    "                    \r\n" +
-                    "                    \r\n" +
-                    "##                ##",
-                    viewModel.Display);
+        private bool firstTime;
+
+        private void ViewModel_PropertyChanged (object sender, PropertyChangedEventArgs e) {
+            if (sender is GameViewModel viewModel && e.PropertyName?.Equals (nameof (viewModel.Display), StringComparison.InvariantCulture) == true) {
+                if (firstTime) {
+                    firstTime = false;
+                    Assert.AreEqual (
+                        "####################\r\n" +
+                        "####################\r\n" +
+                        "####################\r\n" +
+                        "####################\r\n" +
+                        "####################\r\n" +
+                        "####################\r\n" +
+                        "####################\r\n" +
+                        "####################\r\n" +
+                        "####################\r\n" +
+                        "####################",
+                        viewModel.Display);
+                } else {
+                    viewModel.Stop ();
+                    Assert.AreEqual (
+                        "##                ##\r\n" +
+                        "                    \r\n" +
+                        "                    \r\n" +
+                        "                    \r\n" +
+                        "                    \r\n" +
+                        "                    \r\n" +
+                        "                    \r\n" +
+                        "                    \r\n" +
+                        "                    \r\n" +
+                        "##                ##",
+                        viewModel.Display);
+                }
             }
         }
     }
