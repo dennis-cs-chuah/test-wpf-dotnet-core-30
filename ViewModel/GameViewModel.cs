@@ -6,28 +6,53 @@ using TestWPFCore30.Model;
 
 namespace TestWPFCore30.ViewModel {
     public class GameViewModel : INotifyPropertyChanged {
-        private readonly GameGrid gameGrid;
+        private GameGrid? gameGrid;
+        private DispatcherTimer? timer;
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        private byte width = 30;
+        public byte Width {
+            get => width;
+            set {
+                if (value < 10)
+                    throw new ArgumentException ("Width cannot be less than 10");
+                width = value;
+            }
+        }
+
+        private byte height = 30;
+        public byte Height {
+            get => height;
+            set {
+                if (value < 10)
+                    throw new ArgumentException ("Height cannot be less than 10");
+                height = value;
+            }
+        }
+
+        public int InitialAlivePercentage { get; set; } = GameGrid.DEFAULT_ALIVE_PERCENTAGE;
 
         private void NotifyPropertyChanged (string propertyName) {
             PropertyChanged?.Invoke (this, new PropertyChangedEventArgs (propertyName));
         }
 
-        public GameViewModel (byte width, byte height) {
-            gameGrid = new GameGrid (width, height);
+        public string Display { get; private set; } = "";
+
+        public void Start (int intervalSeconds = 1) {
+            gameGrid = new GameGrid (width, height, InitialAlivePercentage);
             Display = CalculateDisplay ();
-        }
-
-        public string Display { get; private set; }
-
-        public void Start () {
-            DispatcherTimer timer = new DispatcherTimer ();
+            timer = new DispatcherTimer ();
             timer.Tick += Timer_Tick;
-            timer.Interval = new TimeSpan (0, 0, 1); // 1 second
+            timer.Interval = new TimeSpan (0, 0, intervalSeconds);
             timer.Start ();
         }
 
+        public void Stop () {
+            timer?.Stop ();
+        }
+
         private void Timer_Tick (object? _, EventArgs __) {
+            gameGrid?.NextIteration ();
             UpdateDisplay ();
         }
 
@@ -37,11 +62,13 @@ namespace TestWPFCore30.ViewModel {
         }
 
         private string CalculateDisplay () {
-            return string.Join ("\r\n",
+            return gameGrid != null ?
+                string.Join ("\r\n",
                 gameGrid.
                     GetCells ().
                     Select (row => string.Join ("", row.
-                        Select (cell => cell.IsAlive ? "##" : "  "))));
+                        Select (cell => cell.IsAlive ? "##" : "  ")))) :
+                "";
         }
     }
 }
