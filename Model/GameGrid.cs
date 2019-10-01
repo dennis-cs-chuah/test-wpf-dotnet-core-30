@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace TestWPFCore30.Model {
     public class GameGrid {
-        public const int DEFAULT_ALIVE_PERCENTAGE = 10;
+        public const int DEFAULT_ALIVE_PERCENTAGE = 20;
         private readonly byte width;
         private readonly byte height;
         private readonly Cell[,] cells;
