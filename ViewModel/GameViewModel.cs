@@ -43,7 +43,7 @@ namespace TestWPFCore30.ViewModel {
 
         public void Start (int intervalSeconds = 1) {
             gameGrid = new GameGrid (width, height, InitialAlivePercentage);
-            Display = CalculateDisplay ();
+            UpdateDisplay ();
             timer = new DispatcherTimer ();
             timer.Tick += Timer_Tick;
             timer.Interval = new TimeSpan (0, 0, intervalSeconds);
