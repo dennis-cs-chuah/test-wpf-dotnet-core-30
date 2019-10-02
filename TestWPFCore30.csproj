@@ -7,6 +7,7 @@
     <Nullable>enable</Nullable>
     <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
     <PublishSingleFile>true</PublishSingleFile>
+    <Description>Example of Conway's Game of Life (C) 2019 Dennis Chuah, All Rights Reserved - see LICENSE file.</Description>
   </PropertyGroup>
 
   <ItemGroup>
