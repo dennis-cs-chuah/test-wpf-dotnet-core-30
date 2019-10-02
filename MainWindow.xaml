@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestWPFCore30"
         mc:Ignorable="d"
-        Title="Conway's Game of Life" Height="300" Width="600">
+        Title="Conway's Game of Life" Height="400" Width="600">
     <Window.Resources>
         <Style TargetType="TextBox">
             <Style.Triggers>
@@ -30,7 +30,7 @@
         </StackPanel>
         <ScrollViewer Margin="4" Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <Border BorderThickness="1" BorderBrush="Brown">
-                <TextBlock Text="{Binding ViewModel.Display, Mode=OneWay}" TextWrapping="Wrap" FontFamily="Courier New" />
+                <TextBlock Text="{Binding ViewModel.Display, Mode=OneWay}" TextWrapping="Wrap" FontFamily="Courier New" FontSize="6pt"/>
             </Border>
         </ScrollViewer>
     </Grid>
