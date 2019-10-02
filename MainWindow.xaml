@@ -6,6 +6,15 @@
         xmlns:local="clr-namespace:TestWPFCore30"
         mc:Ignorable="d"
         Title="Conway's Game of Life" Height="300" Width="600">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="160"/>
@@ -13,9 +22,9 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Orientation="Vertical" Margin="4 4 6 4">
             <Label Content="Grid width"/>
-            <TextBox Text="{Binding ViewModel.Width, Mode=TwoWay, FallbackValue=30}"/>
+            <TextBox Text="{Binding ViewModel.Width, Mode=TwoWay, ValidatesOnExceptions=True, ValidatesOnDataErrors=True, FallbackValue=30}"/>
             <Label Content="Grid height"/>
-            <TextBox Text="{Binding ViewModel.Height, Mode=TwoWay, FallbackValue=30}"/>
+            <TextBox Text="{Binding ViewModel.Height, Mode=TwoWay, ValidatesOnExceptions=True, ValidatesOnDataErrors=True, FallbackValue=30}"/>
             <Button Content="Start" Margin="20 20 20 0" Click="StartGame" IsEnabled="{Binding ViewModel.IsStopped, Mode=OneWay}"/>
             <Button Content="Stop" Margin="20 20 20 0" Click="StopGame" IsEnabled="{Binding ViewModel.IsStarted, Mode=OneWay}"/>
         </StackPanel>
